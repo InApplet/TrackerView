@@ -4,50 +4,24 @@ layout: default
 
 <div class="container mt-4">
     <div class="row">
-        <div class="col-3">
-            <canvas id="myChart" width="200" height="200"></canvas>
-            <script>
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                        datasets: [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }
-                });
-                </script>
+        <div class="col-4">
+            <p class="h6">Visualizações por dia/hora</p>
+            <canvas id="viewByHour" width="200" height="160"></canvas>
         </div>
-        <div class="col">aaaaaaa</div>
-        <div class="col">aaaaaaa</div>
+        <div class="col-4">
+            <p class="h6">Páginas mais acessadas</p>
+            <ul class="list-group" id="viewListUrlDiv">
+                <li class="list-group-item">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Morbi leo risus</li>
+                <li class="list-group-item">Porta ac consectetur ac</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+              </ul>
+
+        </div>
         <div class="col">aaaaaaa</div>
     </div>
 </div>
+
+<script src="/assets/js/public/views_by_hour.js"></script>
+<script src="/assets/js/public/views_list_url.js"></script>
