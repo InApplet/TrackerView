@@ -2,20 +2,106 @@
 layout: default
 ---
 
+{% include controls.html %}
+
 <div class="container mt-4">
     <div class="row">
-        <div class="col-4">
+        <div class="col">
             <p class="h6">Visualizações por dia/hora</p>
-            <canvas id="viewByHour" width="200" height="160"></canvas>
+            <canvas id="viewByHour" width="210" height="90"></canvas>
         </div>
-        <div class="col-4">
-            <p class="h6">Páginas mais acessadas</p>
-            <ul class="list-group" id="viewListUrlDiv"></ul>
-
+    </div>
+    <div class="row mt-4">
+        <div class="col-3">
+            <div class="card border-primary">
+                <div class="card-body text-center">
+                    <span class="h5">Pageviews</span>
+                    <br>
+                    <b class="h3" id="viewCountPageviews">-</b>
+                </div>
+            </div>
         </div>
-        <div class="col">aaaaaaa</div>
+        <div class="col-3">
+            <div class="card border-success">
+                <div class="card-body text-center">
+                    <span class="h5">Sessões</span>
+                    <br>
+                    <b class="h3" id="viewCountSession">-</b>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-3">
+            <div class="card border-info">
+                <div class="card-body text-center">
+                    <span class="h5">Páginas / Sessões</span>
+                    <br>
+                    <b class="h3">20.000</b>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card border-dark">
+                <div class="card-body text-center">
+                    <span class="h5">Sessões / Usuário</span>
+                    <br>
+                    <b class="h3">20.000</b>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <!-- <div class="row mt-4">
+        <div class="col-3">
+            <p class="h5">Sistema Operacional</p>
+            <ul class="list-group" id="viewListSo"></ul>
+        </div>
+        <div class="col-3">
+            <p class="h5">Navegador</p>
+            <ul class="list-group" id="viewListBrowser"></ul>
+        </div>
+        <div class="col-3">
+            <p class="h5">Dispositivo</p>
+            <ul class="list-group" id="viewListDevice"></ul>
+        </div>
+        <div class="col-3">
+            <p class="h5">Resolução</p>
+            <ul class="list-group" id="viewListScreen"></ul>
+        </div>
+    </div> -->
+    <hr class="mt-3 mb-3">
+    <div class="row">
+        <div class="col">    
+            <span class="h2">Aquisição</span>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-3">
+            <p class="h5">Páginas mais visitas</p>
+            <ul class="list-group" id="viewListMorePages">Carregando ou sem dados</ul>
+        </div>
+        <div class="col-3">
+            <p class="h5">Referrência</p>
+            <ul class="list-group" id="viewListReferral">Carregando ou sem dados</ul>
+        </div>
+        <div class="col-3">
+            <p class="h5">Origem</p>
+            <ul class="list-group" id="viewListOrigin">Carregando ou sem dados</ul>
+        </div>
+        <div class="col-3">
+            <p class="h5">Origem + Modelo</p>
+            <ul class="list-group" id="viewListOriginMethod">Carregando ou sem dados</ul>
+        </div>
     </div>
 </div>
 
-<script src="/assets/js/public/views_by_hour.js"></script>
-<script src="/assets/js/public/views_list_url.js"></script>
+<!-- Show Graph -->
+<script src="/assets/js/public/views_graph.js?{{ site.time | date: '%s' }}"></script>
+
+<!-- User count -->
+<script src="/assets/js/public/views_count_pageview.js?{{ site.time | date: '%s' }}"></script>
+<script src="/assets/js/public/views_count_session.js?{{ site.time | date: '%s' }}"></script>
+
+<!-- Acquisition -->
+<script src="/assets/js/public/views_list_url.js?{{ site.time | date: '%s' }}"></script>
+<script src="/assets/js/public/views_list_referral.js?{{ site.time | date: '%s' }}"></script>
+<script src="/assets/js/public/views_list_origin.js?{{ site.time | date: '%s' }}"></script>
+<script src="/assets/js/public/views_list_originmode.js?{{ site.time | date: '%s' }}"></script>

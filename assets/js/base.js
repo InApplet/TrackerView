@@ -1,3 +1,22 @@
+function getDateCalendar(minusDays = 0){
+
+    var d1 = new Date();
+    d1.setDate(d1.getDate() + minusDays);
+    console.log(d1);
+
+    var day = d1.getDate(),
+        month = d1.getMonth() + 1,
+        year = d1.getFullYear();
+
+    month = (month < 10 ? "0" : "") + month;
+    day = (day < 10 ? "0" : "") + day;
+
+    var today = year + "-" + month + "-" + day;
+
+    return today;
+
+}
+
 function runQuery(query, callback){
 
     var data = null;
@@ -21,10 +40,8 @@ function runQuery(query, callback){
                 window[callback](data['success']);
                 return data['success'];
 
-            }else{
-                alert("Sem dados");
-                return false;
             }
+            return false;
         }
     });
 
