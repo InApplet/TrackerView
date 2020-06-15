@@ -4,10 +4,10 @@ layout: default
 
 {% include controls.html %}
 
-<div class="container mt-4">
+<div class="container mt-4 mb-4">
     <div class="row">
         <div class="col">
-            <p class="h6">Visualizações por dia/hora</p>
+            <p class="h6">Views by day/hour</p>
             <canvas id="viewByHour" width="210" height="90"></canvas>
         </div>
     </div>
@@ -24,71 +24,35 @@ layout: default
         <div class="col-3">
             <div class="card border-success">
                 <div class="card-body text-center">
-                    <span class="h5">Sessões</span>
+                    <span class="h5">Sessions</span>
                     <br>
                     <b class="h3" id="viewCountSession">-</b>
                 </div>
             </div>
         </div>
-        <!-- <div class="col-3">
-            <div class="card border-info">
-                <div class="card-body text-center">
-                    <span class="h5">Páginas / Sessões</span>
-                    <br>
-                    <b class="h3">20.000</b>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="card border-dark">
-                <div class="card-body text-center">
-                    <span class="h5">Sessões / Usuário</span>
-                    <br>
-                    <b class="h3">20.000</b>
-                </div>
-            </div>
-        </div> -->
     </div>
-    <!-- <div class="row mt-4">
-        <div class="col-3">
-            <p class="h5">Sistema Operacional</p>
-            <ul class="list-group" id="viewListSo"></ul>
-        </div>
-        <div class="col-3">
-            <p class="h5">Navegador</p>
-            <ul class="list-group" id="viewListBrowser"></ul>
-        </div>
-        <div class="col-3">
-            <p class="h5">Dispositivo</p>
-            <ul class="list-group" id="viewListDevice"></ul>
-        </div>
-        <div class="col-3">
-            <p class="h5">Resolução</p>
-            <ul class="list-group" id="viewListScreen"></ul>
-        </div>
-    </div> -->
     <hr class="mt-3 mb-3">
     <div class="row">
         <div class="col">    
-            <span class="h2">Aquisição</span>
+            <span class="h2">Acquisition</span>
         </div>
     </div>
     <div class="row mt-3">
         <div class="col-3">
-            <p class="h5">Páginas mais visitas</p>
-            <ul class="list-group" id="viewListMorePages">Carregando ou sem dados</ul>
+            <p class="h5">Most visited pages</p>
+            <ul class="list-group" id="viewListMorePages">Loading or without data</ul>
         </div>
         <div class="col-3">
-            <p class="h5">Referrência</p>
-            <ul class="list-group" id="viewListReferral">Carregando ou sem dados</ul>
+            <p class="h5">Reference</p>
+            <ul class="list-group" id="viewListReferral">Loading or without data</ul>
         </div>
         <div class="col-3">
-            <p class="h5">Origem</p>
-            <ul class="list-group" id="viewListOrigin">Carregando ou sem dados</ul>
+            <p class="h5">Source</p>
+            <ul class="list-group" id="viewListOrigin">Loading or without data</ul>
         </div>
         <div class="col-3">
-            <p class="h5">Origem + Modelo</p>
-            <ul class="list-group" id="viewListOriginMethod">Carregando ou sem dados</ul>
+            <p class="h5">Source + Medium</p>
+            <ul class="list-group" id="viewListOriginMethod">Loading or without data</ul>
         </div>
     </div>
 </div>

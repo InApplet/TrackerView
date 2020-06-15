@@ -1,5 +1,5 @@
 window.showCountPageview = function ( data) {
-    console.log(data);
+    console.info(data);
 
     var rawRows = data['rows'];
 
@@ -12,7 +12,9 @@ window.showCountPageview = function ( data) {
         if (rawRows.hasOwnProperty(key)) {
             const element = rawRows[key];
 
-            this.console.log(element);
+            if(element['count'] == 0){
+                alert('No events found!');
+            }
 
             document.getElementById('viewCountPageviews').innerText = element['count'];
 

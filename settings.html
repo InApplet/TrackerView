@@ -1,0 +1,53 @@
+---
+layout: default
+permalink: /settings/
+---
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-6 ml-auto mr-auto">
+            <div class="card">
+                <div class="card-body">
+                    <p class="h5">Get your account token:</p>
+                    <ol class="pl-4">
+                        <li>Access the <a href="https://www.inapplet.com" target="_blank">InApplet</a> website and click <b>Login</b></li>
+                        <li>Log in to your account or create your account</li>
+                        <li>On the right side of the menu choose a project or create a new one</li>
+                        <li>After creating the project, click on the menu under <b>Settings</b></li>
+                        <li>The list of <b>API Tokens</b> will be displayed on the settings screen, copy one of the tokens and insert in the <b>Token</b> fields in the form below</li>
+                        <li>The slug is in the <b>tracking code</b> next to <i>window.account_slug</i></li>
+                        <li>Okay, now your account is set up, the accesses you make on the TrackView will be displayed on the TrackView itself as a demonstration</li>
+                    </ol>
+
+                    <hr>
+                    <form action="#" id="formConfig">
+                        <div class="form-group">
+                            <label for="configInputToken">InApplet API token</label>
+                            <input type="text" id="configInputToken" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="configInputSlug">Project Slug</label>
+                            <input type="text" id="configInputSlug" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/js/config/save_token.js"></script>
+
+<script>
+    var tempTrackToken = localStorage.getItem('trackview_token'),
+        tempTrackSlug = localStorage.getItem('trackview_slug');
+
+    if(tempTrackToken != null){
+        document.getElementById('configInputToken').value = tempTrackToken;
+    }
+
+    if(tempTrackSlug != null){
+        document.getElementById('configInputSlug').value = tempTrackSlug;
+    }
+</script>

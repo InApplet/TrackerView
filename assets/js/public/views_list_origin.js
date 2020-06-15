@@ -22,11 +22,17 @@ window.showViewsOrigin = function ( data) {
 
 function getViewsOrigin() {
 
+    var source_id = localStorage.getItem('trackview_source_id');
+
+    if(source_id == false){
+        return false;
+    }
+
     var date1 = sessionStorage.getItem('trackview_control_date1'),
         date2 = sessionStorage.getItem('trackview_control_date2'),
         filterDate = "DATE(created_at) BETWEEN '"+date1+"' AND '"+date2+"'";
 
-    var stringQuery = "SELECT count(id) as conta, value  FROM `properties` WHERE `ref_propertie` = 100 AND ("+filterDate+") GROUP BY `value` ORDER BY conta DESC";
+    var stringQuery = "SELECT count(id) as conta, value  FROM `properties` WHERE `ref_propertie` = "+source_id+" AND ("+filterDate+") GROUP BY `value` ORDER BY conta DESC";
     runQuery(stringQuery, 'showViewsOrigin');
 }
 
