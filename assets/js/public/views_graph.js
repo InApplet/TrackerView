@@ -87,11 +87,29 @@ function getViewsByHour() {
     
     var date_diff = ((date2_f.getTime() - date1_f.getTime()) / (1000 * 3600 * 24)) + 1;
 
-    sql_select = "select count(id) as conta, DATE_ADD('"+date1+"', INTERVAL aux.i DAY) as date from ";
-	sql_select += "(select i from dfl_date.ints order by i limit "+date_diff+") as aux ";
-    sql_select += "left join (select date(created_at) as date, id from events WHERE ref_event = 1) as evt ";
-	sql_select += "on evt.date = DATE_ADD('"+date1+"', INTERVAL aux.i DAY) ";
-    sql_select += "GROUP by DATE_ADD('"+date1+"', INTERVAL aux.i DAY)";
+    switch (control_period) {
+        case 'day':
+            sql_select = "select count(id) as conta, DATE_ADD('"+date1+"', INTERVAL aux.i DAY) as date from ";
+            sql_select += "(select i from dfl_date.ints order by i limit "+date_diff+") as aux ";
+            sql_select += "left join (select date(created_at) as date, id from events WHERE ref_event = 1) as evt ";
+            sql_select += "on evt.date = DATE_ADD('"+date1+"', INTERVAL aux.i DAY) ";
+            sql_select += "GROUP by DATE_ADD('"+date1+"', INTERVAL aux.i DAY)";       
+            break;
+
+        case 'hour':
+
+            date_diff = date_diff * 24;
+
+            sql_select = "select count(id) as conta, DATE_ADD('"+date1+"', INTERVAL i HOUR) as date from ";
+            sql_select += "(select i from dfl_date.ints order by i limit "+date_diff+") as aux ";
+            sql_select += "left join (select DATE_FORMAT(created_at,'%Y-%m-%d %k:00:00') as date, id from events WHERE ref_event = 1) as evt ";
+            sql_select += "on evt.date = DATE_ADD('"+date1+"', INTERVAL i HOUR) ";
+            sql_select += "GROUP by DATE_ADD('"+date1+"', INTERVAL i HOUR) order by date asc";
+            break;
+
+        default:
+            break;
+    }
 
     runQuery(sql_select, 'showViewsByHour');
 }
