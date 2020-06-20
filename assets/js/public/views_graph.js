@@ -3,10 +3,6 @@ window.showViewsByHour = function (data) {
 
     var rawRows = data['rows'];
 
-    console.log('---------------');
-    console.log(data);
-    console.log('---------------');
-
     var dataValues = [];
     var labelValues = [];
 
@@ -38,10 +34,10 @@ window.showViewsByHour = function (data) {
                     break;
             }
 
-            dayFormated = moment(element['date'], axeFormat);
+            // dayFormated = moment(element['date'], axeFormat);
 
             dataValues[key] = element['conta'];
-            labelValues[key] = dayFormated;
+            labelValues[key] = element['date'];
         }
     }
     
@@ -68,12 +64,12 @@ window.showViewsByHour = function (data) {
                         beginAtZero: true,
                     }
                 }],
-                xAxes: [{
-                    type: 'time',
-                    time: {
-                        unit: axeUnit
-                    },
-                }]
+                // xAxes: [{
+                //     type: 'time',
+                //     time: {
+                //         unit: axeUnit
+                //     },
+                // }]
             },
         }
     });
@@ -83,72 +79,37 @@ function getViewsByHour() {
 
     var date1 = sessionStorage.getItem('trackview_control_date1'),
         date2 = sessionStorage.getItem('trackview_control_date2'),
-        filterDate = "DATE(created_at) BETWEEN '"+date1+"' AND '"+date2+"'";
+        control_period = sessionStorage.getItem('trackview_control_period'),
+        sql_select;
 
+    var date1_f = new Date(date1),
+        date2_f = new Date(date2);
     
-        var control_period = sessionStorage.getItem('trackview_control_period'),
-        sql_period_hour = "HOUR(created_at) as dategroup, DATE_FORMAT(created_at,'%d/%m/%Y %k:00') as date",
-        sql_period_day = "DATE(created_at) as dategroup, DATE_FORMAT(created_at,'%d/%m/%Y') as date",
-        sql_period_month = "MONTH(created_at) as dategroup, DATE_FORMAT(created_at,'%m/%Y') as date";
+    var date_diff = ((date2_f.getTime() - date1_f.getTime()) / (1000 * 3600 * 24)) + 1;
 
-    var sql_select;
+    sql_select = "select count(id) as conta, DATE_ADD('"+date1+"', INTERVAL aux.i DAY) as date from ";
+	sql_select += "(select i from dfl_date.ints order by i limit "+date_diff+") as aux ";
+    sql_select += "left join (select date(created_at) as date, id from events WHERE ref_event = 1) as evt ";
+	sql_select += "on evt.date = DATE_ADD('"+date1+"', INTERVAL aux.i DAY) ";
+    sql_select += "GROUP by DATE_ADD('"+date1+"', INTERVAL aux.i DAY)";
 
-    switch (control_period) {
-        case 'hour':
-            sql_select = sql_period_hour;
-            break;
-        case 'day':
-            sql_select = sql_period_day;
-            break;
-        case 'month':
-            sql_select = sql_period_month;
-            break;
-        default:
-            sql_select = sql_period_day;
-            break;
-    }
-
-    var stringQuery = "SELECT "+sql_select+", count(id) as conta FROM `events` WHERE ref_event = 1 AND ("+filterDate+") GROUP BY dategroup";
-    console.log(stringQuery);
-    runQuery(stringQuery, 'showViewsByHour');
+    runQuery(sql_select, 'showViewsByHour');
 }
 
 getViewsByHour();
 
-// SELECT DATE_ADD("2017-06-15", INTERVAL t1.i DAY)
-// FROM (
-//     select i from ints) as t1
+// hour
+// select count(id), DATE_ADD("2020-06-14", INTERVAL i HOUR) as dtae from 
+// (select i from datee_test.ints order by i limit 250) as aux
+// left join (select DATE_FORMAT(created_at,'%Y-%m-%d %k:00:00') as date, id from events WHERE ref_event = 1) as evt
+// on evt.date = DATE_ADD("2020-06-14", INTERVAL i HOUR)
+// GROUP by DATE_ADD("2020-06-14", INTERVAL i HOUR) order by dtae asc
+
+//day
+// select count(id), DATE_ADD('2020-06-08', INTERVAL aux.i DAY) as m_date from"
+// (select i from datee_test.ints order by i limit 7) as aux"
+// left join (select date(created_at) as date, id from events WHERE ref_event = 1) as evt"
+// on evt.date = DATE_ADD('2020-06-08', INTERVAL aux.i DAY)"
+// GROUP by DATE_ADD('2020-06-08', INTERVAL aux.i DAY)"
 
 // http://www.brianshowalter.com/calendar_tables
-
-// SELECT
-//   DATE('2010/01/01') + INTERVAL (NR * 60) MINUTE AS mydate
-// FROM (
-//   SELECT d2.a*10+d1.a  AS nr FROM (
-//    SELECT 0  a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 
-//    UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8  UNION ALL SELECT 9) AS d1
-//    CROSS JOIN (
-//    SELECT 0 a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4  ) AS d2
-// WHERE d2.a*10+d1.a BETWEEN 0 AND 47
-// ) AS parameter
-// ORDER BY nr
-
-// with digit as (
-//     select 0 as d union all 
-//     select 1 union all select 2 union all select 3 union all
-//     select 4 union all select 5 union all select 6 union all
-//     select 7 union all select 8 union all select 9        
-// ),
-// seq as (
-//     select a.d + (10 * b.d) + (100 * c.d) + (1000 * d.d) as num
-//     from digit a
-//         cross join
-//         digit b
-//         cross join
-//         digit c
-//         cross join
-//         digit d
-//     order by 1        
-// )
-// select current_date - seq.num as "Date"
-// from seq;
