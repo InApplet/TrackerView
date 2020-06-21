@@ -13,7 +13,7 @@ window.showViewsOrigin = function ( data) {
         if (rawRows.hasOwnProperty(key)) {
             const element = rawRows[key];
 
-            html += '<li class="text-break list-group-item d-flex justify-content-between align-items-center">'+element['value']+' <span class="badge badge-info badge-pill">'+element['conta']+'</span></li>';
+            html += '<li class="text-break list-group-item d-flex justify-content-between align-items-center">'+element['value']+' <span class="badge badge-primary badge-pill">'+element['conta']+'</span></li>';
         }
     }
 
